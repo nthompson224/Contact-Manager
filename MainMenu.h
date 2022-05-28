@@ -3,11 +3,7 @@
 #include "Contact.h"
 #include "ContactBook.h"
 #include "Persistance.h"
-
-#include <iostream>
 #include <iomanip>
-#include <limits>
-#include <list>
 
 
 using std::cout;
@@ -45,12 +41,13 @@ void MainMenu() {
 		case 4: clearContacts(contactBook);
 			break;
 		case 5: save(contactBook);
-			exit(69);
+			exit(1);
 			break;
 		}
 	} while (true);
 }
 
+//prompts user for MainMenu() choice
 int getChoice() {
 	int choice{};
 	bool valid = true;

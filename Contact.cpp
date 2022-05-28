@@ -1,5 +1,4 @@
 #include "Contact.h"
-#include <iostream>
 #include <string>
 
 void Contact::reformatNum(std::string& num){
@@ -192,15 +191,6 @@ void Contact::setRelation(Contact& b){
 	std::getline(std::cin, newRelation);
 	
 	b.relation = newRelation;
-}
-
-bool Contact::compLast(Contact& lhs, Contact& rhs){
-	int compResult = lhs.lastName.compare(rhs.lastName);
-
-	if (compResult == 0) {
-		compResult = lhs.firstName.compare(rhs.firstName);
-	}
-	return compResult < 0;
 }
 
 bool Contact::operator==(const Contact& c)

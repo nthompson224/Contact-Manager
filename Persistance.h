@@ -1,11 +1,10 @@
 #pragma once
 #include "Contact.h"
-#include <iostream>
 #include <string>
-#include <list>
 #include <fstream>
 
-
+//prompts on termination of the program. allows user to save their contacts for later use or if they don't want to save can just force exit
+//requires user to save contacts to .txt file
 void save(std::list<Contact> b) {
 	std::cin.ignore();
 
@@ -14,7 +13,7 @@ void save(std::list<Contact> b) {
 	bool valid = true;
 	do{
 		valid = true;
-		std::cout << "Enter a file name to save your contacts to: ";
+		std::cout << "Enter a file name to save your contacts to or 'EXIT' to force exit.: ";
 		std::getline(std::cin, file);
 
 		if (file == "EXIT") {
@@ -47,6 +46,8 @@ void save(std::list<Contact> b) {
 	std::cout << "\nContacts saved successfully!\n\n";
 }
 
+//prompts on program entrance. allows users to load a previous contact save file.
+//if new or do not want to load a previous save, can press enter to bypass.
 void load(std::list<Contact>& b) {
 	std::string file{};
 	std::ifstream in;

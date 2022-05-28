@@ -1,0 +1,17 @@
+16
+Uncle|Bill|(330)802-7953|||||Family
+Adelina|Buga|(330)786-9066|(111)111-1111|||United Way|Family
+Roman|Choo|(216)534-7113||||PCC|Friend
+Jacob|Egnar|(216)331-9332||||PSP|Work
+David|Gabriel|(330)808-1694||||ACH|Doc
+Kimber|Hair|(330)842-1912|||||Hair
+Rachel|Hammond|(234)288-4048|||||Family
+Javier|Idk|(330)595-9723||||Dennys|Work
+AJ|Klaben|(330)907-3004|||||Friend
+Nick|Kungli|(333)333-3333||||PCC|Friend
+Matt|Lefever|(330)245-6753||||PCC|Work
+Danny|Paul|(330)592-8683|||||Family
+Ethan|Schultz|(444)444-4444||||PCC|Friend
+Mike|Thompson|(222)222-2222|||||Family
+Nate|Thompson|(330)785-9546|(234)288-9118|stonethompson224@gmail.com|785 Work Dr.|PCC|Self
+Maddy|Vesfals|(330)289-5037|||||Friend

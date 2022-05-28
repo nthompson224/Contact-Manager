@@ -2,16 +2,25 @@
 
 #include "Contact.h"
 #include "MainMenu.h"
-#include <iostream>
 #include <string>
-#include <list>
-#include <set>
 #include <vector>
 #include <algorithm>
 
+//prompts user to choose what they want to edit from their contact
+int getEdit(int choice, std::list<Contact>::iterator itr) {
+	std::cout << "\n\n[" << choice << "]\n"
+		<< "     [1] First Name: " << itr->getFirst() << '\n'
+		<< "     [2] Last Name: " << itr->getLast() << '\n'
+		<< "     [3] Primary Number: " << itr->getPrimNumber() << '\n'
+		<< "     [4] Secondary Number: " << itr->getSecNumber() << '\n'
+		<< "     [5] Email Address: " << itr->getEmail() << '\n'\
+		<< "     [6] Address: " << itr->getAddress() << '\n'
+		<< "     [7] Company: " << itr->getCompany() << "\n"
+		<< "     [8] Relation: " << itr->getRelation() << "\n\n"
+		<< "     [9] Delete\n\n"
+		<< "[0] Go Back\n\n\n";
 
-int getEdit() {
-	int choice{};
+	std::cout << "Select what you would like to edit: ";
 	bool valid = true;
 	do {
 		valid = true;
@@ -28,6 +37,7 @@ int getEdit() {
 	return choice;
 }
 
+//prompts user to specify how they want to sort / view contacts
 int getSort() {
 	int choice{};
 	bool valid = true;
@@ -47,7 +57,7 @@ int getSort() {
 	return choice;
 }
 
-
+//prompts user to add a contact; must enter first name, last name and primary phone number to be allowed to add and construct
 void addContact(std::list<Contact>& book) {
 	std::cin.ignore();
 
@@ -91,7 +101,7 @@ void addContact(std::list<Contact>& book) {
 		std::string company{};
 		std::string relation{};
 
-		std::cout << "*: Field Required\n\n";
+		std::cout << "* Required Field\n\n";
 
 		std::cout << "First Name:* ";
 		do {
@@ -159,6 +169,7 @@ void addContact(std::list<Contact>& book) {
 	} while (!quit);
 }
 
+//comparator for first name sort
 struct FirstComp {
 	bool operator()(Contact& lhs, Contact& rhs) {
 		int compResult = lhs.getFirst().compare(rhs.getFirst());
@@ -171,6 +182,7 @@ struct FirstComp {
 	}
 };
 
+//comparator for last name sort
 struct LastComp {
 	bool operator()(Contact& lhs, Contact& rhs) {
 
@@ -184,6 +196,7 @@ struct LastComp {
 	}
 };
 
+//displays contacts by: first name, last name
 void firstNameDisplay(std::list<Contact> b) {
 	std::cin.ignore();
 
@@ -205,6 +218,7 @@ void firstNameDisplay(std::list<Contact> b) {
 	std::cin.get();
 }
 
+//displays contacts by: last name, first name
 void lastNameDisplay(std::list<Contact> b) {
 	std::cin.ignore();
 
@@ -223,6 +237,7 @@ void lastNameDisplay(std::list<Contact> b) {
 	}
 }
 
+//prints only fist name and primary number
 void simpleView(std::list<Contact> b) {
 	std::cin.ignore();
 
@@ -239,6 +254,8 @@ void simpleView(std::list<Contact> b) {
 	std::cin.get();
 }
 
+//searches the list of contacts company and displays all that were found
+//allows user to specify what contacts from that company they want to view and displays all contacts 
 void companyView(std::list<Contact> b) {
 	std::cin.ignore();
 
@@ -316,11 +333,13 @@ void companyView(std::list<Contact> b) {
 	} while (true);
 }
 
+//searches the list of contacts relation and displays all that were found
+//allows user to specify what relation they want to view and displays all contacts with that relation
 void relationView(std::list<Contact> b) {
 	std::cin.ignore();
 
 	std::vector<std::string> relation;
-	std::vector<Contact*> relationPtr;
+	std::vector<Contact*> relationVect;
 
 	auto itr = b.begin();
 
@@ -328,10 +347,10 @@ void relationView(std::list<Contact> b) {
 		std::string temp = itr->getRelation();
 		if (std::find(relation.begin(), relation.end(), temp) == relation.end() && !temp.empty()) {
 			relation.push_back(temp);
-			relationPtr.push_back(&*itr);
+			relationVect.push_back(&*itr);
 		}
 		else if (std::find(relation.begin(), relation.end(), temp) != relation.end() && !temp.empty()) {
-			relationPtr.push_back(&*itr);
+			relationVect.push_back(&*itr);
 		}
 		itr++;
 	}
@@ -377,7 +396,7 @@ void relationView(std::list<Contact> b) {
 		i = 1;
 
 		std::cout << "Relation: " << rel << "\n\n";
-		for (auto& x : relationPtr) {
+		for (auto& x : relationVect) {
 			if (x->getRelation() == rel) {
 				std::cout << "[" << i << "] " << x->getLast() << ", " << x->getFirst() << ":\n\n"
 					<< "     Primary Number: " << x->getPrimNumber() << '\n'
@@ -395,6 +414,8 @@ void relationView(std::list<Contact> b) {
 	} while (true);
 }
 
+//accepts a string to search the list by first name
+//displays all occurrences of the found string and displays the contacts
 void searchFirst(std::list<Contact> b) {
 	std::cin.ignore();
 
@@ -448,6 +469,8 @@ void searchFirst(std::list<Contact> b) {
 	} while (true);
 }
 
+//accepts a string to search the list by last name
+//displays all occurrences of the found string and displays the contacts
 void searchLast(std::list<Contact> b) {
 	std::cin.ignore();
 
@@ -501,6 +524,8 @@ void searchLast(std::list<Contact> b) {
 	} while (true);
 }
 
+//searches the list of contacts and gets all valid companies. Stores them in vector compCount for every company and stores one of each in comp
+//displays each company by looping through comp and then displays the count by using std::count algorithm on compCount
 void companyCount(std::list<Contact> b) {
 	std::cin.ignore();
 
@@ -529,6 +554,8 @@ void companyCount(std::list<Contact> b) {
 	std::cin.get();
 }
 
+//searches the list of contacts and gets all valid relations. Stores them in vector relCount for every company and stores one of each in rel
+//displays each company by looping through rel and then displays the count by using std::count algorithm on relCount
 void relationCount(std::list<Contact> b) {
 	std::cin.ignore();
 
@@ -619,6 +646,7 @@ void viewContacts(std::list<Contact> b) {
 	} while (true);
  }
 
+//prompts user for secondary validation they want to delete a single contact
 void deleteContact(std::list<Contact>& b, std::list<Contact>::iterator &itr) {
 	std::cin.ignore();
 
@@ -686,20 +714,7 @@ void editContact(std::list<Contact>& b) {
 		std::list<Contact>::iterator itr = b.begin();
 		std::advance(itr, choice - 1);
 
-		std::cout << "[" << choice << "]\n"
-			<< "     [1] First Name: " << itr->getFirst() << '\n'
-			<< "     [2] Last Name: " << itr->getLast() << '\n'
-			<< "     [3] Primary Number: " << itr->getPrimNumber() << '\n'
-			<< "     [4] Secondary Number: " << itr->getSecNumber() << '\n'
-			<< "     [5] Email Address: " << itr->getEmail() << '\n'\
-			<< "     [6] Address: " << itr->getAddress() << '\n'
-			<< "     [7] Company: " << itr->getCompany() << "\n"
-			<< "     [8] Relation: " << itr->getRelation() << "\n\n"
-			<< "     [9] Delete\n\n"
-			<< "[0] Go Back\n\n\n";
-
-		std::cout << "Select what you would like to edit: ";
-		int edit = getEdit();
+		int edit = getEdit(choice, itr);
 
 		switch (toupper(edit))
 		{
@@ -729,6 +744,7 @@ void editContact(std::list<Contact>& b) {
 	} while (true);
 }
 
+//prompts user for secondary validation they want to clear all contacts
 void clearContacts(std::list<Contact>& b) {
 	std::cin.ignore();
 

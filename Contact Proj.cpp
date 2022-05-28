@@ -1,5 +1,6 @@
 #include "MainMenu.h"
 
+//program entrance
 int main() {
 
 	MainMenu();
